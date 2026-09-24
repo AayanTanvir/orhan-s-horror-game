@@ -1,40 +1,26 @@
 shader_type canvas_item;
 
-uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_nearest;
-uniform float pixel_size : hint_range(1.0, 16.0) = 3.0;
-uniform float color_levels : hint_range(8.0, 256.0) = 32.0; // Higher values mean smoother, subtle PSX colors
-uniform float dither_strength : hint_range(0.0, 1.0) = 0.05;
-
-// Simple PSX-style dithering matrix
-float dither8x8(vec2 position) {
-	int x = int(mod(position.x, 8.0));
-	int y = int(mod(position.y, 8.0));
-	int index = x + y * 8;
-	float map[64] = float[](
-		0.0/64.0, 32.0/64.0,  8.0/64.0, 40.0/64.0,  2.0/64.0, 34.0/64.0, 10.0/64.0, 42.0/64.0,
-		48.0/64.0, 16.0/64.0, 56.0/64.0, 24.0/64.0, 50.0/64.0, 18.0/64.0, 58.0/64.0, 26.0/64.0,
-		12.0/64.0, 44.0/64.0,  4.0/64.0, 36.0/64.0, 14.0/64.0, 46.0/64.0,  6.0/64.0, 38.0/64.0,
-		60.0/64.0, 28.0/64.0, 52.0/64.0, 20.0/64.0, 62.0/64.0, 30.0/64.0, 54.0/64.0, 22.0/64.0,
-		 3.0/64.0, 35.0/64.0, 11.0/64.0, 43.0/64.0,  1.0/64.0, 33.0/64.0,  9.0/64.0, 41.0/64.0,
-		51.0/64.0, 19.0/64.0, 59.0/64.0, 27.0/64.0, 49.0/64.0, 17.0/64.0, 57.0/64.0, 25.0/64.0,
-		15.0/64.0, 47.0/64.0,  7.0/64.0, 39.0/64.0, 13.0/64.0, 45.0/64.0,  5.0/64.0, 37.0/64.0,
-		63.0/64.0, 31.0/64.0, 55.0/64.0, 23.0/64.0, 61.0/64.0, 29.0/64.0, 53.0/64.0, 21.0/64.0
-	);
-	return map[index] - 0.5;
-}
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+uniform float color_aberration : hint_range(0.0, 0.01) = 0.002;
+uniform vec4 tint_color : source_color = vec4(1.0, 0.96, 0.85, 1.0); // Warm yellow/vhs tint
+uniform float vignette_intensity : hint_range(0.0, 1.0) = 0.4;
 
 void fragment() {
-	vec2 grid = vec2(textureSize(SCREEN_TEXTURE, 0)) / pixel_size;
-	vec2 uv = floor(SCREEN_UV * grid) / grid;
-	
-	vec3 color = texture(SCREEN_TEXTURE, uv).rgb;
-	
-	// Add subtle dithering pattern
-	float dither = dither8x8(FRAGCOORD.xy / pixel_size) * dither_strength;
-	color += dither;
-	
-	// Compress colors slightly for retro hardware look
-	color = floor(color * color_levels) / color_levels;
-	
-	COLOR = vec4(color, 1.0);
+    vec2 uv = SCREEN_UV;
+    
+    // Smooth Chromatic Aberration (Color Bleed without pixelation)
+    float r = texture(SCREEN_TEXTURE, uv + vec2(color_aberration, 0.0)).r;
+    float g = texture(SCREEN_TEXTURE, uv).g;
+    float b = texture(SCREEN_TEXTURE, uv - vec2(color_aberration, 0.0)).b;
+    vec3 col = vec3(r, g, b);
+    
+    // Apply warm atmospheric tint
+    col *= tint_color.rgb;
+    
+    // Smooth Vignette (darkened edges)
+    vec2 center = uv - vec2(0.5);
+    float dist = length(center);
+    col *= smoothstep(0.8, 0.2, dist * vignette_intensity);
+    
+    COLOR = vec4(col, 1.0);
 }

@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://chmoibrjbnkyi"]
+
+[ext_resource type="PackedScene" uid="uid://kofx0o3ma5hj" path="res://Characters & Character Textures/Character_01.fbx" id="1_msoy6"]
+[ext_resource type="Script" uid="uid://c5ek4m3jgfhfm" path="res://character_01.gd" id="2_hr7p0"]
+[ext_resource type="Texture2D" uid="uid://blaf8o6enp0x7" path="res://Characters & Character Textures/Character_01.png" id="2_jmtso"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hr7p0"]
+albedo_texture = ExtResource("2_jmtso")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1vivr"]
+size = Vector3(1.5882568, 4.479248, 1)
+
+[node name="Character_01" unique_id=1931121137 instance=ExtResource("1_msoy6")]
+script = ExtResource("2_hr7p0")
+
+[node name="Skeleton3D" parent="." index="0" unique_id=1706898621]
+bones/2/position = Vector3(-5.551115e-17, 0.27986997, 0)
+bones/2/rotation = Quaternion(-8.323014e-23, -1.3836091e-29, 1.6624082e-07, 1)
+bones/3/position = Vector3(-5.551115e-17, 0.3198506, 0)
+bones/3/rotation = Quaternion(9.244464e-33, -1.1016931e-33, 4.1633363e-17, 1)
+bones/8/position = Vector3(5.551115e-17, 0.3177991, 8.881784e-16)
+bones/9/position = Vector3(-1.110223e-16, 0.63759625, -4.440892e-16)
+bones/11/position = Vector3(-2.220446e-16, 0.11486441, -2.220446e-16)
+bones/12/position = Vector3(2.220446e-16, 0.10647722, -2.220446e-16)
+bones/12/rotation = Quaternion(-6.938894e-18, 3.469447e-18, 1.4311469e-17, 1)
+bones/13/rotation = Quaternion(6.938894e-18, 3.469447e-18, -4.3368087e-19, 1)
+bones/16/position = Vector3(-1.110223e-16, 0.3177991, 0)
+bones/17/position = Vector3(-1.110223e-16, 0.63759136, 2.220446e-16)
+bones/18/position = Vector3(0, 0.7586589, -6.661338e-16)
+bones/19/position = Vector3(-2.220446e-16, 0.122855626, 0)
+bones/20/position = Vector3(-1.110223e-16, 0.10632375, 0)
+bones/20/rotation = Quaternion(-2.220446e-16, 2.6020852e-18, -3.2526065e-18, 1)
+bones/21/rotation = Quaternion(1.3877788e-17, -1.0408341e-17, 1.8431437e-17, 1)
+bones/24/position = Vector3(-2.7755576e-17, 1.1704538, 2.7755576e-17)
+bones/25/position = Vector3(-5.551115e-17, 1.197239, -2.7755576e-17)
+bones/26/position = Vector3(-5.551115e-17, 0.38350925, 0)
+bones/29/position = Vector3(0, 1.17022, 5.551115e-17)
+bones/30/position = Vector3(8.6042284e-16, 1.1971802, 2.7755576e-17)
+bones/31/position = Vector3(1.110223e-16, 0.39084026, -4.0245585e-16)
+
+[node name="Character_01" parent="Skeleton3D" index="0" unique_id=1575354566]
+material_override = SubResource("StandardMaterial3D_hr7p0")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Skeleton3D/Character_01" index="0" unique_id=41356254]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skeleton3D/Character_01/StaticBody3D" index="0" unique_id=1798231569]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.056534886, 2.2284646, -0.11144471)
+shape = SubResource("BoxShape3D_1vivr")

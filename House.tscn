@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dbhlfwuoox76e"]
+
+[ext_resource type="PackedScene" uid="uid://dnu217mkv6nng" path="res://LowPolyHouse.fbx" id="1_xm50o"]
+
+[node name="LowPolyHouse" unique_id=1862424163 instance=ExtResource("1_xm50o")]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="419" unique_id=92739039]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9431043, 0.676353)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="." index="420" unique_id=217342298]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.06581, 1.8692904, -1.7123705)
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="." index="421" unique_id=250244412]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.06581, 1.8692904, -9.466105)

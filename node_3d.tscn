@@ -2,15 +2,25 @@
 
 [ext_resource type="Script" uid="uid://cxd6hakgy4768" path="res://player.gd" id="1_a202f"]
 [ext_resource type="Script" uid="uid://dyirslcd53t85" path="res://node_3d.gd" id="1_noarx"]
-[ext_resource type="Texture2D" uid="uid://5xx60wccaapq" path="res://WoodFloor051_1K-JPG_Color.jpg" id="2_r3fl7"]
+[ext_resource type="Texture2D" uid="uid://5xx60wccaapq" path="res://texures/WoodFloor051_1K-JPG_Color.jpg" id="2_r3fl7"]
 [ext_resource type="Shader" uid="uid://ble7yfusotpxv" path="res://graphics.gdshader" id="4_i5arm"]
-[ext_resource type="Texture2D" uid="uid://dy7dhyicbq4kj" path="res://Grass001_1K-JPG_Color.jpg" id="4_jka67"]
+[ext_resource type="Texture2D" uid="uid://dy7dhyicbq4kj" path="res://texures/Grass001_1K-JPG_Color.jpg" id="4_jka67"]
+[ext_resource type="PackedScene" uid="uid://dbhlfwuoox76e" path="res://House.tscn" id="6_i5arm"]
+[ext_resource type="PackedScene" uid="uid://chmoibrjbnkyi" path="res://character_01.tscn" id="7_wc5p8"]
 
 [sub_resource type="Environment" id="Environment_1vivr"]
-fog_enabled = true
+background_mode = 3
+glow_enabled = true
+glow_intensity = 1.2
+glow_bloom = 0.4
 fog_light_color = Color(0, 0, 0, 1)
 fog_light_energy = 2.98
 fog_density = 0.1131
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.02
+adjustment_enabled = true
+adjustment_contrast = 1.15
+adjustment_saturation = 0.85
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r3fl7"]
 albedo_texture = ExtResource("2_r3fl7")
@@ -20,9 +30,9 @@ uv1_scale = Vector3(1, 0.815, 2.49)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1vivr"]
 shader = ExtResource("4_i5arm")
-shader_parameter/pixel_size = 4.7600001786
-shader_parameter/color_levels = 20.17600057836
-shader_parameter/dither_strength = 0.0
+shader_parameter/color_aberration = 0.002
+shader_parameter/tint_color = Color(1, 0.96, 0.85, 1)
+shader_parameter/vignette_intensity = 0.4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jka67"]
 corner_radius_top_left = 1024
@@ -56,7 +66,7 @@ size = Vector3(50, 1, 50)
 material = SubResource("StandardMaterial3D_r3fl7")
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=697859291]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24768227, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.615934, 0.24768227, -0.14194584)
 script = ExtResource("1_a202f")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=25810360]
@@ -66,6 +76,9 @@ shape = SubResource("CapsuleShape3D_1vivr")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Player/Camera3D" unique_id=197926328]
+
+[node name="RayCast3D" type="RayCast3D" parent="Player/Camera3D" unique_id=339867418]
+target_position = Vector3(0, 0, -3)
 
 [node name="PSX_PostProcess" type="CanvasLayer" parent="Player" unique_id=348969471]
 
@@ -135,6 +148,12 @@ text = "SDAWD"
 label_settings = SubResource("LabelSettings_noarx")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="LowPolyHouse" parent="." unique_id=1862424163 instance=ExtResource("6_i5arm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.715962, 0.5589125, 2.087843)
+
+[node name="Character_01" parent="." unique_id=1931121137 instance=ExtResource("7_wc5p8")]
+transform = Transform3D(0.38382855, 0, 0, 0, 0.36154592, 0, 0, 0, 0.4568718, -15.115443, -0.25774372, -8.235082)
 
 [connection signal="body_entered" from="ForestTrigger" to="." method="_on_forest_trigger_body_entered"]
 [connection signal="body_entered" from="ForestTrigger" to="Player" method="_on_forest_trigger_body_entered"]

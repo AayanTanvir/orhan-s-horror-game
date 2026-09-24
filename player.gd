@@ -9,6 +9,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var camera = $Camera3D
 @onready var flashlight = $Camera3D/SpotLight3D
+@onready var ray_cast = $Camera3D/RayCast3D
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -18,6 +19,14 @@ func _unhandled_input(event):
 		rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
 		camera.rotate_x(-event.relative.y * MOUSE_SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-89), deg_to_rad(89))
+
+	if event.is_action_pressed("interact"):
+		if ray_cast.is_colliding():
+			var hit = ray_cast.get_collider()
+			if hit.has_method("interact"):
+				hit.interact()
+			elif hit.get_parent().has_method("interact"):
+				hit.get_parent().interact()
 
 func _process(_delta):
 	# Press F to toggle the flashlight light on/off
@@ -47,4 +56,3 @@ func _physics_process(delta):
 func _on_forest_trigger_body_entered(body: Node3D) -> void:
 	if body.is_in_group("Player"):
 		print("The player has entered the dark woods...")
-		# Future step: Trigger dialogue or play scary ambient sound here
