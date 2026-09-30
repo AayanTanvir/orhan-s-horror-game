@@ -1,15 +1,15 @@
 class_name Player
 extends CharacterBody3D
 
-const SPEED = 5.0
+const SPEED = 3.0
 const JUMP_VELOCITY = 4.5
-const MOUSE_SENSITIVITY = 0.003
+const MOUSE_SENSITIVITY = 0.004
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var camera = $Camera3D
 @onready var flashlight = $Camera3D/SpotLight3D
-@onready var ray_cast = $Camera3D/RayCast3D
+@export var interact_ray: RayCast3D
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -20,13 +20,9 @@ func _unhandled_input(event):
 		camera.rotate_x(-event.relative.y * MOUSE_SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-89), deg_to_rad(89))
 
-	if event.is_action_pressed("interact"):
-		if ray_cast.is_colliding():
-			var hit = ray_cast.get_collider()
-			if hit.has_method("interact"):
-				hit.interact()
-			elif hit.get_parent().has_method("interact"):
-				hit.get_parent().interact()
+	if event.is_action_pressed("interact") and interact_ray.is_colliding():
+		var collider = interact_ray.get_collider()
+		collider.interact()
 
 func _process(_delta):
 	# Press F to toggle the flashlight light on/off

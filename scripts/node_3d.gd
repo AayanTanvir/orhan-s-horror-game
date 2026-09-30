@@ -1,8 +1,8 @@
 extends Node3D
 
 
-@onready var dialogue_panel = $CanvasLayer/Panel
-@onready var dialogue_label = $CanvasLayer/Panel/Label
+@export var dialogue_panel: Panel
+@export var dialogue_label: Label
 
 func _ready():
 	# Hide the dialogue box when the game starts
