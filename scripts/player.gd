@@ -47,8 +47,3 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
-
-
-func _on_forest_trigger_body_entered(body: Node3D) -> void:
-	if body.is_in_group("Player"):
-		print("The player has entered the dark woods...")

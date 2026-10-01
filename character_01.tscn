@@ -7,9 +7,6 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_1vivr"]
 size = Vector3(1.5882568, 4.479248, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_8vrlf"]
-size = Vector3(1, 5.2441406, 1)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hr7p0"]
 albedo_texture = ExtResource("2_jmtso")
 
@@ -57,11 +54,5 @@ bones/29/position = Vector3(0, 1.17022, 5.551115e-17)
 bones/30/position = Vector3(8.6042284e-16, 1.1971802, 2.7755576e-17)
 bones/31/position = Vector3(1.110223e-16, 0.39084026, -4.0245585e-16)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Skeleton3D" index="0" unique_id=1698246407]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skeleton3D/StaticBody3D" index="0" unique_id=465117830]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1220703, 0)
-shape = SubResource("BoxShape3D_8vrlf")
-
-[node name="Character_01" parent="Skeleton3D" index="1" unique_id=263357523]
+[node name="Character_01" parent="Skeleton3D" index="0" unique_id=263357523]
 material_override = SubResource("StandardMaterial3D_hr7p0")
