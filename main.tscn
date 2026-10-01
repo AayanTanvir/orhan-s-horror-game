@@ -15,14 +15,12 @@ background_mode = 3
 background_energy_multiplier = 0.66
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.75
-glow_enabled = true
 glow_intensity = 1.28
 glow_bloom = 0.29
 fog_light_color = Color(0, 0, 0, 1)
 fog_light_energy = 2.98
 fog_density = 0.1131
 volumetric_fog_density = 0.02
-adjustment_enabled = true
 adjustment_brightness = 1.5
 adjustment_contrast = 1.275
 adjustment_saturation = 1.06
@@ -35,9 +33,13 @@ uv1_scale = Vector3(1, 0.815, 2.49)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1vivr"]
 shader = ExtResource("5_dg77c")
-shader_parameter/color_aberration = 0.002
-shader_parameter/tint_color = Color(1, 0.96, 0.85, 1)
-shader_parameter/vignette_intensity = 0.4
+shader_parameter/pixel_size = 4.0
+shader_parameter/color_levels = 32.0
+shader_parameter/dither_strength = 0.6
+shader_parameter/saturation = 0.9
+shader_parameter/contrast = 1.05
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/vignette_strength = 0.35
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jka67"]
 corner_radius_top_left = 1024

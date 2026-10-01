@@ -17,13 +17,7 @@ collision_layer = 2
 monitoring = false
 monitorable = false
 script = ExtResource("2_hr7p0")
-lines = Array[Dictionary]([{
-"speaker": "char",
-"text": "YO WHO THE HELL ARE YOU AND WHAT ARE YOU DOING IN MY HOUS!!?"
-}, {
-"speaker": "user",
-"text": "Im john cina"
-}])
+character_name = "???"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0" unique_id=1798231569]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.056534886, 2.2284646, -0.11144471)
