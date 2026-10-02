@@ -33,13 +33,6 @@ uv1_scale = Vector3(1, 0.815, 2.49)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1vivr"]
 shader = ExtResource("5_dg77c")
-shader_parameter/pixel_size = 4.0
-shader_parameter/color_levels = 32.0
-shader_parameter/dither_strength = 0.6
-shader_parameter/saturation = 0.9
-shader_parameter/contrast = 1.05
-shader_parameter/tint = Color(1, 1, 1, 1)
-shader_parameter/vignette_strength = 0.35
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jka67"]
 corner_radius_top_left = 1024
@@ -50,6 +43,7 @@ corner_radius_bottom_left = 1024
 [node name="Node3D" type="Node3D" unique_id=591188221]
 
 [node name="DialogueManager" type="CanvasLayer" parent="." unique_id=1690999204 node_paths=PackedStringArray("label", "panel")]
+layer = 2
 script = ExtResource("2_kek77")
 label = NodePath("Panel/Label")
 panel = NodePath("Panel")
